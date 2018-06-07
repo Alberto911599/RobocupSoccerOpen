@@ -12,7 +12,7 @@
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
 
-
+///c
 //MOTORES
 int motores[10] = {10, 9, 11, 12, 38, 36, 42, 40, 28, 26};
 int enable[5] = {8, 13, 7, 6, 5};
