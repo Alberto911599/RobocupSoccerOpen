@@ -37,7 +37,7 @@
   const int left_r = 370;
   const int left_s = 140;
   const int tm = 20;
-  const int umbral = 20;
+  const int umbral = 50;
   void setup(){
     
    //Serial.begin(9600); 
@@ -66,27 +66,27 @@
 //    out[3] = 0; 
 //    
 //    
-    if(colores[0] > (right_r + umbral) || colores[1] > (right_s + umbral)){
+    if(colores[0] > (constantes[0] + umbral) || colores[1] > (constantes[1] + umbral)){
         digitalWrite(out[0], HIGH);
         digitalWrite(led, HIGH);
 //        out[0] = 1; 
       }
       
 
-    if(colores[4] > (left_r + umbral)|| colores[5] > (left_s + umbral)){
+    if(colores[4] > (constantes[4] + umbral)|| colores[5] > (constantes[5] + umbral)){
       digitalWrite(out[1], HIGH);
       digitalWrite(led, HIGH);
 
     }
 //      out[1] = 1; 
 
-    if(colores[2] > (front_r + umbral) || colores[3] > (front_s + umbral)){
+    if(colores[2] > (constantes[2] + umbral) || colores[3] > (constantes[3] + umbral)){
       digitalWrite(out[2], HIGH);
       digitalWrite(led, HIGH);
     }
 //      out[2] = 1; 
 
-    if(colores[6] > (back_r + umbral) || (colores[7] > back_s + umbral)){
+    if(colores[6] > (constantes[6] + umbral) || (colores[7] > constantes[7] + umbral)){
       digitalWrite(out[3], HIGH);
       digitalWrite(led, HIGH);
     }

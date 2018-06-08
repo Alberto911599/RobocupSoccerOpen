@@ -29,7 +29,7 @@ void centro(bool &adentroIzq, bool &adentroDer){
 
    adentroIzq = comprobacion(actIzq, adentroIzq); 
 
-   delay(5);
+   delay(6);
 
    actDer = der.ping_cm();
 

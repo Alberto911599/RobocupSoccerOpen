@@ -44,7 +44,19 @@ void imprimirPixy(){
     lcd.print("0");
   }
   lcd.setCursor(0,1);
+  lcd.print(y_pelota);
 
-    lcd.print(y_porteria);
+  lcd.setCursor(5,1);
+  lcd.print(alineado);
+
+  lcd.setCursor(8,1);
+  lcd.print(x_pelota);
+  
 }
+
+
+void imprimirmovimiento(int evento){
+  lcd.setCursor(0,1);
+  lcd.print(evento);
+  }
 

@@ -10,10 +10,10 @@ void scanPixy(){
     viendo_porteria = contador_porteria < 50;
     viendo_Pelota = contador_pelota < 50;
      
-    if(contador_pelota < 80)
+    if(contador_pelota < 51)
       contador_pelota++;
   
-    if(contador_porteria < 80)
+    if(contador_porteria < 51)
       contador_porteria++;
     
     if(blocks){

@@ -42,6 +42,7 @@ unsigned Ap = 3;
 unsigned baseRotacion = 100;
 int p1 = 170;
 int p2 = 190;
+int x = 0;
 
 
 ///////////////////////////////////////ULTRASONICOS/////////////////////////////////////////
@@ -114,7 +115,7 @@ void setup(){
 
 void loop(){
 
-  //analisis_de_datos();
- colores();
+  analisis_de_datos();
+ //colores();
 } 
 

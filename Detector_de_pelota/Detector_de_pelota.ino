@@ -29,7 +29,7 @@ Adafruit_BNO055 bno = Adafruit_BNO055(55);        //Declaracion del BNO
                                                    
 bool viendo_Pelota = false;                                                                    
 bool viendo_porteria = false;
-bool alineado = false; 
+short alineado = 0; 
 short on_color[4] = {3,2,18,19};                       //000 = libre; 010 = derecha; 100 = izquierda; 111 = meta rival; 110 = propia meta
 int x_pelota = 0, y_pelota = 0;                           
 int y_porteria = 0;                                   
@@ -46,7 +46,7 @@ double angle = 0, ant = 0, cal = 0;
 bool cambio = false, entre = true;
 int tiempo = 500;
 bool tendencia;
-
+unsigned long long tiempo_kicker = 0;
 
 //////////////////////////////////////////  ////////////////////////////////////////////////////////////////  
 
@@ -91,14 +91,19 @@ void setup() {
   analogWrite(enable[0], 180);
   analogWrite(enable[1], 200);
   analogWrite(enable[2], 180);
-  analogWrite(enable[3], 210);
-
+  analogWrite(enable[3], 200);
+ 
   //LCD
   lcd.begin();  
   lcd.clear();
   lcd.backlight(); 
+
+  digitalWrite(24,HIGH);
 }
 
 void loop() {
   analisis_de_datos();
-}
+  //scanPixy();
+  //avanzar(1);
+  //colores();
+  }

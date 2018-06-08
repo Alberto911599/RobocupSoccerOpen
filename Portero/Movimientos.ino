@@ -121,8 +121,8 @@ void avanzar(int evento, bool rapido) {
 //en este caso catch la pelota y fire la porteria
 int recorrido(int i, int y){
   
-  int bajo = y > 99 ? 120 : y > 69 ? 139 : 145;
-  int alto = y > 200 ? 200 : y > 69 ? 191 : 181;
+  int bajo = y > 99 ? 120 : y > 69 ? 130 : 140;
+  int alto = y > 200 ? 200 : y > 69 ? 190 : 181;
   
 //La pelota esta en el primer tercio de cancha
   if(i > bajo && i < alto){
@@ -189,6 +189,7 @@ void cubrePorteria(){
   
   while(!adentroIzq || !adentroDer){ 
     avanzar(direccion, true);
+    scanPixy();
     colores();
     
 //    if(on_color[0] == 1 || on_color[1] == 1){
@@ -206,7 +207,17 @@ void cubrePorteria(){
   }
  
   esp = direccion == 2 ? 3 : 2;
-
+  if(!viendo_Pelota)
+    x_pelota = esp == 2 ? 319 : 0; 
 }
 
+void alineacion(){
+  x = CalAng();
+  if(!(x > 350 || x < 10)){
+     int temp =  x > 180 ? 9 : 8;
+     avanzar(temp,true);
+     delay(1);
+     //x = CalAng();
+   }
+}
 

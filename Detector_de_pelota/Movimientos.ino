@@ -1,5 +1,5 @@
 void avanzar(int evento) {
-  
+  imprimirmovimiento(evento);
   switch (evento) {
     case -2:
     for(int i = 0; i < 8; i++){
@@ -123,20 +123,22 @@ void aprieta(){
 }
 
 void afloja(){
-  analogWrite(enable[0], 170);
-  analogWrite(enable[1], 180);
-  analogWrite(enable[2], 140);
-  analogWrite(enable[3], 140);
+  analogWrite(enable[0], 180);
+  analogWrite(enable[1], 200);
+  analogWrite(enable[2], 180);
+  analogWrite(enable[3], 200);
 }
 
 void alineacion(){
   int rotacion = CalAng();
-  if(viendo_porteria){;
-    if(!alineado && (rotacion > 360 - 40 || rotacion < 40)){
-      int temp = x_porteria > 250 ? 9 : 8;
-      avanzar(temp);
+  
+  if(viendo_porteria){
+    if(alineado != 0 && (rotacion > 360 - 40 || rotacion < 40)){
+      //int temp = x_porteria > 260 ? 9 : 8;
+      avanzar(alineado);
     }
   }
+  
 //  else if (tendencia){
 //    if(x_porteria > 160){
 //      
@@ -159,6 +161,7 @@ void alineacion(){
   if(!(rotacion > 360 - 50 || rotacion < 50)){
      int temp =  rotacion > 180 ? 9 : 8;
      avanzar(temp);
+     delay(6);
      rotacion = CalAng();
    }
 }
