@@ -2,7 +2,8 @@
 //en este caso catch la pelota y fire la porteria
 int catch_fire(int i){
   int temp;
-
+//  int bajo, alto;
+//  bajo = j > 65 ? 60 : (j > 
   if(i > 80 && i < 240){
       temp = 1;     
   }
@@ -25,54 +26,28 @@ void dribbler(){
     avanzar(11);
 }
 
-//void catch_fire_direct(int i, int j){
-//  if(i > 100 && i < 220){
-////    Serial.println("Adelante");
-//    direccion = 1;
-//  }
-//  //La pelota esta a la izquierda
-//  else if(i <= 100){
-//    //La peota esta muy cerca
-//    if(j > 110){
-//      //Izquierda
-//      direccion = 2;
-//    }
-//    //La pelota esta lejos
-//    else{
-//      //Frente izquierda
-//      direccion = 5;
-//    }
-//  }
-//  else{
-//    if(j > 110){
-//      //Derecha
-//      direccion = 3;
-//    }
-//    //La pelota esta lejos
-//    else{
-//      //Frente derecha
-//      direccion = 6;
-//    }
-//  }
-//}
 
 //Funcion que se utiliza para buscar un objetivo
 int find_objective(int i){
   int temp;
+  analogWrite(enable[0], 180);
+  analogWrite(enable[1], 200);
+  analogWrite(enable[2], 180);
+  analogWrite(enable[3], 200);
   //Si no se detecta, y la ultima vez que se vio fue en medio
   if( i >= 40 && i <= 280 ){
 //    Serial.println("Se perdio de vista por distancia, echa reversa");
-    direccion = 0;
+    temp = 0;
   }
 //  Si no se detecta, y la ultima vez que se vio i fue mayor a 270, el objetivo esta a la derecha
   else if(i > 280){
 //    Serial.println("El objetivo salio por la derecha, diagonal hacia atras a la derecha");
-    direccion = 4;
+    temp = 4;
   }
   //Si no se detecta, y la ultima vez que se vio i fue menor a 50, el objetivo esta a la izquierda
   else{
 //    Serial.println("El objetivo salio por la izquierda, diagonal hacia atras a la izuqierda");
-    direccion = 7;
+    temp = 7;
   }
   
   return temp;
@@ -100,7 +75,10 @@ void analisis_de_datos(){
   colores();
   
   scanPixy();
-  
+
+  //VERIFICAR SI LA PELOTA ESTA EN Y Y EN X CERCA PARA GOLPEAR
+//  if(y_pelota >= 190 && x_pelota > 130 && x_pelota < 190 && viendo_porteria)
+//    kicker();
 // Libre
   if(on_color[0] == 0 && on_color[1] == 0 && on_color[2] == 0 && on_color[3] == 0){  
     
@@ -112,8 +90,10 @@ void analisis_de_datos(){
 
 //  Mete gol
     else{
-      direccion = catch_fire(x_pelota);
+        dribbler();
+        direccion = catch_fire_direct();
     }
+    
     avanzar(direccion);
   }
 
@@ -129,10 +109,13 @@ void analisis_de_datos(){
     all_meco(1);
   }
 
+
+  
+  /*
   if(contadorDesmarque >= 3){
     desmarque();
   }
-    
+  */
 }
 
 

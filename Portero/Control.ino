@@ -1,6 +1,7 @@
 void P(int dir, bool rapido){
     int ang = CalAng();
     int diferencia = ang > 180 ? 360 - ang : ang;
+    int diferenciaCam = abs(x_pelota - 160);
     
     if(diferencia > 40)
       Ap = 5.5;
@@ -8,13 +9,12 @@ void P(int dir, bool rapido){
       Ap = 4.5;
     else
       Ap = 4;
-
-      
+    
     diferencia *= Ap;
     
     if(rapido){
-      p1 = 180;
-      p2 = 200;
+      p1 = diferenciaCam > 50 ? 170 : 1.5*diferenciaCam;
+      p2 = diferenciaCam > 50 ? 190 : 1.5*diferenciaCam;;
     }
 
     else{

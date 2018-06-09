@@ -7,15 +7,18 @@
 #include <LiquidCrystal_I2C.h>
 #include <SPI.h>
 #include <Wire.h>
+#include <math.h>
 #include <TPixy.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
 
-///c
+
 //MOTORES
 int motores[10] = {10, 9, 11, 12, 38, 36, 42, 40, 28, 26};
 int enable[5] = {8, 13, 7, 6, 5};
+int p1 = 180;
+int p2 = 200;
 
 LiquidCrystal_I2C lcd(0x27,16,2);
 
@@ -26,26 +29,35 @@ LiquidCrystal_I2C lcd(0x27,16,2);
 Pixy pixy;                                         
 
 Adafruit_BNO055 bno = Adafruit_BNO055(55);        //Declaracion del BNO
-                                                   
+
+//////////////////////////////////////PIXY//////////////////////////////////////
+uint16_t blocks;                                                 
 bool viendo_Pelota = false;                                                                    
 bool viendo_porteria = false;
-bool alineado = false; 
-short on_color[4] = {3,2,18,19};                       //000 = libre; 010 = derecha; 100 = izquierda; 111 = meta rival; 110 = propia meta
+short alineado = 0; 
+int angPixy = 0;
 int x_pelota = 0, y_pelota = 0;                           
 int y_porteria = 0;                                   
-int x_porteria = 0;                                   
+int x_porteria = 0; 
 int contador_pelota = 0;
 int contador_porteria = 0;
-int contador_alineacion = 0;
-uint16_t blocks;                                  
+int signature_porteria;
+bool tendencia;
+unsigned bajoPor = 70, altoPor = 250;
+
+//////////////////////////////////////FOTORRESISTENCIAS//////////////////////////////////////
+short on_color[4] = {3,2,18,19};                       
+                                 
+
+//////////////////////////////////////BNO055//////////////////////////////////////                            
 unsigned int direccion;  
 bool equipo = true;
-int signature_porteria;
 int contadorDesmarque = 0;
 double angle = 0, ant = 0, cal = 0;
 bool cambio = false, entre = true;
 int tiempo = 500;
-bool tendencia;
+long tiempo_kicker = 0;
+short Kp = 0;
 
 
 //////////////////////////////////////////  ////////////////////////////////////////////////////////////////  
@@ -81,6 +93,7 @@ void setup() {
 
   //Disparador
   pinMode(24, OUTPUT);
+  digitalWrite(24, LOW);
   
   //Debugeo
   pinMode(47, OUTPUT);
@@ -91,8 +104,8 @@ void setup() {
   analogWrite(enable[0], 180);
   analogWrite(enable[1], 200);
   analogWrite(enable[2], 180);
-  analogWrite(enable[3], 210);
-
+  analogWrite(enable[3], 200);
+ 
   //LCD
   lcd.begin();  
   lcd.clear();
