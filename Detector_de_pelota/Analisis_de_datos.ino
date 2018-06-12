@@ -69,8 +69,8 @@ void analisis_de_datos(){
   alineacionBNO();
 
 //  //VERIFICAR SI LA PELOTA ESTA EN Y Y EN X CERCA PARA GOLPEAR
-  bool Kb = millis() - tiempoKick > 9000 && !actKick;
-  bool Rb = actKick && millis() - tiempoKick > 9000;
+  bool Kb = millis() - tiempoKick2 > 9000 && !actKick;
+  bool Rb = actKick && millis() - tiempoKick > 300;
   if(Kb){
     if(y_pelota >= 180 && x_pelota > 130 && x_pelota < 190 && viendo_porteria){
       actKick = true;
@@ -81,6 +81,7 @@ void analisis_de_datos(){
   if(Rb){
     digitalWrite(24,HIGH);
     actKick = false;
+    tiempoKick2 = millis();
   }
 
   colores();
