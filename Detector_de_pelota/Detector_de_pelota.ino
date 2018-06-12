@@ -43,7 +43,11 @@ int contador_pelota = 0;
 int contador_porteria = 0;
 int signature_porteria;
 bool tendencia;
-unsigned bajoPor = 70, altoPor = 250;
+unsigned bajoPor = 120, altoPor = 200;
+
+//////////////////////////////////////KICKER//////////////////////////////////////
+unsigned long tiempoKick = 0;
+bool actKick = false;
 
 //////////////////////////////////////FOTORRESISTENCIAS//////////////////////////////////////
 short on_color[4] = {3,2,18,19};                       
@@ -57,7 +61,10 @@ double angle = 0, ant = 0, cal = 0;
 bool cambio = false, entre = true;
 int tiempo = 500;
 long tiempo_kicker = 0;
-short Kp = 0;
+short Kp = 1.2;
+short Ap = 3;
+int anguloBNO = 40;
+int anguloPorteria = 30;
 
 
 //////////////////////////////////////////  ////////////////////////////////////////////////////////////////  
@@ -93,7 +100,7 @@ void setup() {
 
   //Disparador
   pinMode(24, OUTPUT);
-  digitalWrite(24, LOW);
+  digitalWrite(24, HIGH);
   
   //Debugeo
   pinMode(47, OUTPUT);
@@ -105,6 +112,7 @@ void setup() {
   analogWrite(enable[1], 200);
   analogWrite(enable[2], 180);
   analogWrite(enable[3], 200);
+  analogWrite(enable[4], 255);
  
   //LCD
   lcd.begin();  

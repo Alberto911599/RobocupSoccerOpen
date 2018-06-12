@@ -7,13 +7,13 @@ void scanPixy(){
     
     blocks = pixy.getBlocks();
     
-    viendo_porteria = contador_porteria < 50;
-    viendo_Pelota = contador_pelota < 50;
+    viendo_porteria = contador_porteria < 100;
+    viendo_Pelota = contador_pelota < 100;
      
-    if(contador_pelota < 51)
+    if(contador_pelota < 100)
       contador_pelota++;
   
-    if(contador_porteria < 51)
+    if(contador_porteria < 100)
       contador_porteria++;
     
     if(blocks){
@@ -35,9 +35,11 @@ void scanPixy(){
         }
   
         else if(signature == 3){
+          if(area_temp > 100){
             contador_porteria = 0;
             x_porteria = pixy.blocks[h].x; //Regresa la coordenada x del centro del rectangulo de la porteria amarilla(de 0 a 319)
             y_porteria = pixy.blocks[h].y; //Regresa la coordenada x del centro del rectangulo de la porteria amarilla (de 0 a 199)
+          }
         }
       }
     }

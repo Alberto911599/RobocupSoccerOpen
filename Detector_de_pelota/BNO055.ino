@@ -4,7 +4,7 @@ int CalAng(){
   sensors_event_t event; 
   bno.getEvent(&event);
   rotacion = event.orientation.x;
-//  imprimirAng(rotacion);
+  imprimirAng(rotacion);
   return rotacion;
 }
   

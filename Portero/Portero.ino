@@ -35,11 +35,10 @@ uint16_t blocks;
 Adafruit_BNO055 bno = Adafruit_BNO055(55);        //Declaracion del BNO
 double angle = 0, ant = 0, cal = 0;
 bool cambio = false, entre = true;
-int anguloPermitido = 10;
-int anguloBuscar = 40;
-unsigned Kp = 5;
+int anguloPermitido = 40;
+unsigned Kp = 4;
 unsigned Ap = 3;
-unsigned baseRotacion = 100;
+unsigned baseRotacion = 70;
 int p1 = 170;
 int p2 = 190;
 int x = 0;
@@ -54,6 +53,7 @@ bool adentroIzq = true, adentroDer = true;
 bool medio = true;
 bool abajo = true;
 short esp = -1;
+short caso = 0;
 unsigned limiteDistancia = 25;
 
 
@@ -65,6 +65,8 @@ int tiempoT = 800;
 //////////////////////////////////////Mov
 String i;
 String d;
+long tiempoKick = 0;
+bool actKick = false;
 
 void setup(){
   
@@ -95,17 +97,12 @@ void setup(){
  anteDer  = der.ping_cm();
 
   lcd.begin();  
-  lcd.clear();
-
+  lcd.clear();    
   lcd.backlight();
-  lcd.setCursor(0, 0);
-  lcd.print("iz="); 
-  lcd.setCursor(8, 0);
-  lcd.print("de="); 
-  lcd.setCursor(0, 1);
-  lcd.print("Angle = ");  
+   
 
   pinMode(24, OUTPUT);
+//  digitalWrite(24, HIGH);
 
   pinMode(47, OUTPUT);
   pinMode(43, OUTPUT);
@@ -114,8 +111,6 @@ void setup(){
 
 
 void loop(){
-
   analisis_de_datos();
- //colores();
 } 
 

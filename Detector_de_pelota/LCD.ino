@@ -31,36 +31,36 @@ void imprimirRes(){
 
 //PRIMER LINEA
 void imprimirPixy(){
-  lcd.setCursor(0,0);
-  if(viendo_Pelota){
-    lcd.print("1");
-  }
-  else{
-    lcd.print("0");
-  }
-  lcd.setCursor(1,0);
-  if(viendo_porteria){
-    lcd.print("1");
-  }
-  else{
-    lcd.print("0");
-  }
-  lcd.setCursor(2,0);
-  if(tendencia){
-    lcd.print("1");
-  }
-  else{
-    lcd.print("0");
-  }
+//  lcd.setCursor(0,0);
+//  if(viendo_Pelota){
+//    lcd.print("1");
+//  }
+//  else{
+//    lcd.print("0");
+//  }
+//  lcd.setCursor(1,0);
+//  if(viendo_porteria){
+//    lcd.print("1");
+//  }
+//  else{
+//    lcd.print("0");
+//  }
+//  lcd.setCursor(2,0);
+//  if(tendencia){
+//    lcd.print("1");
+//  }
+//  else{
+//    lcd.print("0");
+//  }
 
   lcd.setCursor(4, 0);
-  lcd.print(formatoGral(p1));
+  lcd.print(formatoGral(x_pelota));
 
   lcd.setCursor(8, 0);
-  lcd.print(formatoGral(p2));
-
-  lcd.setCursor(12, 0);
-  lcd.print(formatoGral(angPixy));
+  lcd.print(formatoGral(y_pelota));
+//
+//  lcd.setCursor(12, 0);
+//  lcd.print(formatoGral(angPixy));
   
   lcd.setCursor(4,1);
   lcd.print(formatoGral(contador_pelota));

@@ -30,10 +30,6 @@ void dribbler(){
 //Funcion que se utiliza para buscar un objetivo
 int find_objective(int i){
   int temp;
-  analogWrite(enable[0], 180);
-  analogWrite(enable[1], 200);
-  analogWrite(enable[2], 180);
-  analogWrite(enable[3], 200);
   //Si no se detecta, y la ultima vez que se vio fue en medio
   if( i >= 40 && i <= 280 ){
 //    Serial.println("Se perdio de vista por distancia, echa reversa");
@@ -49,7 +45,7 @@ int find_objective(int i){
 //    Serial.println("El objetivo salio por la izquierda, diagonal hacia atras a la izuqierda");
     temp = 7;
   }
-  
+  postP(temp);  
   return temp;
   
 }
@@ -70,17 +66,29 @@ void desmarque(){
 
 void analisis_de_datos(){
   
-  alineacion();
-  
+  alineacionBNO();
+
+//  //VERIFICAR SI LA PELOTA ESTA EN Y Y EN X CERCA PARA GOLPEAR
+  bool Kb = millis() - tiempoKick > 9000 && !actKick;
+  bool Rb = actKick && millis() - tiempoKick > 9000;
+  if(Kb){
+    if(y_pelota >= 180 && x_pelota > 130 && x_pelota < 190 && viendo_porteria){
+      actKick = true;
+      tiempoKick = millis();
+      digitalWrite(24,LOW);
+    }
+  }
+  if(Rb){
+    digitalWrite(24,HIGH);
+    actKick = false;
+  }
+
   colores();
   
-  scanPixy();
-
-  //VERIFICAR SI LA PELOTA ESTA EN Y Y EN X CERCA PARA GOLPEAR
-//  if(y_pelota >= 190 && x_pelota > 130 && x_pelota < 190 && viendo_porteria)
-//    kicker();
 // Libre
   if(on_color[0] == 0 && on_color[1] == 0 && on_color[2] == 0 && on_color[3] == 0){  
+
+   scanPixy();
     
   //Si no esta viendo la pelota, buscala
     if(!viendo_Pelota){
@@ -90,8 +98,21 @@ void analisis_de_datos(){
 
 //  Mete gol
     else{
-        dribbler();
+      if(alineacionPorteria()){
+        lcd.setCursor(1,0);
+        lcd.print("X");
+      }
+      else{
+        lcd.setCursor(1,0);
+        lcd.print("A");
+      }
+      if(y_pelota > 170){
+        afloja();
+        direccion = catch_fire(x_pelota);
+      }
+      else{
         direccion = catch_fire_direct();
+      }
     }
     
     avanzar(direccion);
@@ -109,13 +130,6 @@ void analisis_de_datos(){
     all_meco(1);
   }
 
-
-  
-  /*
-  if(contadorDesmarque >= 3){
-    desmarque();
-  }
-  */
 }
 
 

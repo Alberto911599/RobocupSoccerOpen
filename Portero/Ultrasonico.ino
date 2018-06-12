@@ -1,19 +1,15 @@
 bool comprobacion(double d, bool ad){
-  if(d >= 60 && ad){
-    ad = false;
-  }
-  if(d <= 20 && !ad){
+  if(d <= 27 && !ad){
     ad = true;
   }
   return ad;
 }
 
-
 void centro(bool &adentroIzq, bool &adentroDer){
    
    actIzq = izq.ping_cm();
   
-   if(actIzq > 0){
+   if(actIzq > 0 && actIzq < 100){
       if(abs(actIzq - anteIzq) > 15){
         if(anteIzq > actIzq)
           adentroIzq = true;
@@ -33,7 +29,7 @@ void centro(bool &adentroIzq, bool &adentroDer){
 
    actDer = der.ping_cm();
 
-   if(actDer > 0){
+   if(actDer > 0 && actDer < 100){
       if(abs(actDer - anteDer) > 17){
         if(anteDer > actDer)
           adentroDer = true;
@@ -49,34 +45,5 @@ void centro(bool &adentroIzq, bool &adentroDer){
 
    adentroDer = comprobacion(actDer, adentroDer);
 
-   i = String((int) actIzq); 
-   lcd.setCursor(4,0);
-   if(actIzq < 10 )
-    i = " " + i;
-   lcd.print(i);
-
-   d = String((int) actDer); 
-   lcd.setCursor(12,0);
-   if(actDer < 10 )
-    d = " " + d;
-   lcd.print(d);
-
-     
-   if(adentroIzq){
-      lcd.setCursor(14,1);
-      lcd.print("1");
-   }
-   else{
-      lcd.setCursor(14,1);
-      lcd.print("0");
-   }
-   if(adentroDer){
-      lcd.setCursor(15,1);
-      lcd.print("1");
-   }
-   else{
-      lcd.setCursor(15,1);
-      lcd.print("0");
-   }
-   
+   imprimirUltrasonicos();
 }

@@ -1,5 +1,8 @@
 void avanzar(int evento, bool rapido) {
-  P(evento, rapido);
+  if(evento < 8)
+    P(evento, rapido);
+  else
+    aprieta();
   switch (evento) {
     case -2:
     for(int i = 0; i < 8; i++){
@@ -161,54 +164,28 @@ void afloja(){
   analogWrite(enable[3], 120);
 }
 
-void cubrePorteria(){
-  
+int cubrePorteria(){
+  int temp;
   if(!adentroIzq && !adentroDer){
-    scanPixy();
-    if(viendo_porteria){
-      lcd.setCursor(15,0);
-      lcd.print("1");
-      direccion = x_porteria > 160 ? 3 : 2;
+    if(caso <= 1){
+      temp = x_porteria > 160 ? 3 : 2;  
+      caso = 1;
     }
     else{
-      lcd.setCursor(15,0);
-      lcd.print("0");
-      direccion = direccion == 2 ? 3 : 2;
+      temp = caso;    
     }
-      
   }
-  
   else{
-    lcd.setCursor(15,0);
-    lcd.print("2");
-    direccion = !adentroIzq ? 3 : 2;
-
+    temp = !adentroIzq ? 3 : 2;
+    caso = temp;
   }
   
-  bool falloResistencia = false;
+  esp = temp == 2 ? 3 : 2;
   
-  while(!adentroIzq || !adentroDer){ 
-    avanzar(direccion, true);
-    scanPixy();
-    colores();
-    
-//    if(on_color[0] == 1 || on_color[1] == 1){
-//      falloResistencia = true; 
-//      direccion = on_color[1] == 1 ? 3 : 2;
-//      while(!adentroIzq || !adentroDer){
-//        avanzar(direccion);
-//        centro(adentroIzq, adentroDer);
-//      }
-//    }
-    
-    if(falloResistencia)
-      break; 
-    centro(adentroIzq, adentroDer);     
-  }
- 
-  esp = direccion == 2 ? 3 : 2;
   if(!viendo_Pelota)
     x_pelota = esp == 2 ? 319 : 0; 
+
+  return temp;
 }
 
 void alineacion(){

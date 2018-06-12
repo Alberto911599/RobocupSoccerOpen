@@ -1,6 +1,8 @@
+  
   int colores[8];
-  int out[11] = {2,3,4,5,6,7,8,9,10,11,12}; 
+  int out[4] = {3,4,5,6}; 
   int led = 13;
+  int constantes[8];
   
   void inicializacion(){
     for(int i = 0; i < 8; i++){
@@ -9,6 +11,8 @@
   }
   
   void lecturas_promedio(){
+    //Inicializas en 0 todos los los valores de las lecturas.
+    inicializacion();
     //Lectura de fotorresistencias
     for(int j = 0; j < 10; j++){
       for(int i = 0; i < 8; i++){
@@ -17,89 +21,85 @@
     }
     for(int i = 0; i < 8; i++){
       colores[i] /= 10;
-      Serial.print(colores[i]);
-      Serial.print("\t");
-    }  
-    Serial.println("");
+//      Serial.print(colores[i]);
+//      Serial.print("\t");
+    } 
+//    Serial.println("");
   }
   
-  void prendepin(){
-    for(int i = 2; i < 11; i++){
-      digitalWrite(out[i], HIGH);
-    }
-  }
-  
-  void apagapin(){
-    for(int i = 2; i < 11; i++){
-      digitalWrite(out[i], LOW);
-    }
-  }
-  
-  void apagatodo(){
-    for(int i = 0; i < 11; i++){
-      digitalWrite(out[i], LOW);
-    }
-  }
-  
-  const int extra_high = 800;
-  const int high = 600;
-  const int down = 450;
   const int tm = 20;
+  const int umbral = 30;
   
   void setup(){
     
-   Serial.begin(9600); 
+//   Serial.begin(9600); 
     
-   for(int i = 0; i < 12; i++){
+   for(int i = 0; i < 4; i++){
     pinMode(out[i], OUTPUT);
    }
-   inicializacion();
+
+   calibracion();
+   
   }
   
   void loop(){
     
-    inicializacion();
-    lecturas_promedio();
+    lecturas_promedio();    
+
+    digitalWrite(led, LOW);
+
+    digitalWrite(out[0], LOW);
+    digitalWrite(out[1], LOW);
+    digitalWrite(out[2], LOW);
+    digitalWrite(out[3], LOW);    
     
-    //Izquierdo
-    if(colores[0] > extra_high || colores[1] > extra_high){
-      digitalWrite(out[0], HIGH);
-      digitalWrite(out[1], LOW);
-      apagapin();
-      digitalWrite(led, HIGH);
-      delay(tm);      
-    }
-    //Derecho
-    else if(colores[4] > extra_high || colores[5] > extra_high){
-      digitalWrite(out[0], LOW);
+    if(colores[0] > (constantes[0] + umbral) || colores[1] > (constantes[1] + umbral)){
+        digitalWrite(out[0], HIGH);
+        digitalWrite(led, HIGH);
+      }
+      
+
+    if(colores[4] > (constantes[4] + umbral)|| colores[5] > (constantes[5] + umbral)){
       digitalWrite(out[1], HIGH);
-      apagapin();
       digitalWrite(led, HIGH);
-      delay(tm);
+
     }
-    //Meta Arriba
-    else if(colores[2] > down || colores[3] > down){
-      digitalWrite(out[0], HIGH);
-      digitalWrite(out[1], HIGH);
-      prendepin();
+
+    if(colores[2] > (constantes[2] + umbral) || colores[3] > (constantes[3] + umbral)){
+      digitalWrite(out[2], HIGH);
       digitalWrite(led, HIGH);
-      delay(tm);
+    } 
+
+    if(colores[6] > (constantes[6] + umbral) || (colores[7] > constantes[7]+ umbral)){
+      digitalWrite(out[3], HIGH);
+      digitalWrite(led, HIGH);
     }
+
+    delayMicroseconds(tm); 
     
-    //Meta Abajo
-    else if(colores[6] > high || colores[7] > high){
-      digitalWrite(out[0], HIGH);
-      digitalWrite(out[1], HIGH);
-      apagapin();
-      digitalWrite(led, HIGH);
-      delay(tm);
-    }
-    
-    //Libre
-    else{
-      digitalWrite(out[0], LOW);
-      digitalWrite(out[1], LOW);
-      apagapin();
-      digitalWrite(led, LOW);
-    }
+
   }
+
+void calibracion(){
+   //incializacion en 0
+   for(int k = 0; k < 8; k++){
+      constantes[k] = 0;
+   }
+   
+   //Calibracion de constantes
+   for(int i = 0; i < 10; i++){
+      lecturas_promedio();   
+      for(int j = 0; j < 8; j++){
+        constantes[j] += colores[j];
+      }
+   }
+
+   for(int k = 0; k < 8; k++){
+      constantes[k] /= 10;
+//      Serial.print(constantes[k]);
+//      Serial.print("    ");
+   }
+//   Serial.println(" Y as e calibro ");
+
+}
+

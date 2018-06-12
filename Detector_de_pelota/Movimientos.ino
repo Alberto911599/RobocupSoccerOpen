@@ -122,10 +122,10 @@ void aprieta(){
 }
 
 void afloja(){
-  analogWrite(enable[0], 180);
-  analogWrite(enable[1], 200);
-  analogWrite(enable[2], 180);
-  analogWrite(enable[3], 200);
+  analogWrite(enable[0], 190);
+  analogWrite(enable[1], 210);
+  analogWrite(enable[2], 190);
+  analogWrite(enable[3], 210);
 }
 
 

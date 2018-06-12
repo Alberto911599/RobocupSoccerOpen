@@ -4,11 +4,11 @@ void P(int dir, bool rapido){
     int diferenciaCam = abs(x_pelota - 160);
     
     if(diferencia > 40)
-      Ap = 5.5;
+      Ap = 3.5;
     else if(diferencia > 30)
-      Ap = 4.5;
+      Ap = 3;
     else
-      Ap = 4;
+      Ap = 2.5;
     
     diferencia *= Ap;
     
@@ -74,9 +74,7 @@ void P(int dir, bool rapido){
     }
 }
 
-void alineacionP(){
-  int ang = CalAng();
-  if(ang > anguloPermitido && ang < 360 - anguloPermitido){
+void alineacionP(int ang){
     int diferencia = 0;
     int tempDir;
     if(ang > 180){
@@ -87,12 +85,13 @@ void alineacionP(){
       tempDir = 8;
       diferencia = ang * Kp;
     }
-    diferencia = diferencia > 255 - baseRotacion ? 255 - baseRotacion : diferencia;
+    diferencia = diferencia > 160 - baseRotacion ? 160 - baseRotacion : diferencia;
+    lcd.setCursor(0,0);
+    lcd.print(formatoGral(diferencia));
     analogWrite(enable[0], baseRotacion + diferencia);
     analogWrite(enable[1], baseRotacion + diferencia);
     analogWrite(enable[2], baseRotacion + diferencia);
     analogWrite(enable[3], baseRotacion + diferencia);
     avanzar(tempDir, true);
-  }
 }
 

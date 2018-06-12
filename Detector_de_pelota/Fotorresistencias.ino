@@ -3,14 +3,13 @@ void colores(){
   on_color[1] = digitalRead(2);
   on_color[2] = digitalRead(18);
   on_color[3] = digitalRead(19);
-//  imprimirRes();
+  imprimirRes();
 }
 
 void all_meco(int aux){
-
+    afloja(); 
     int rotacion = CalAng();
     long tempTime = millis();
-    
     
     //Lados
     if(aux  == -1){ 
