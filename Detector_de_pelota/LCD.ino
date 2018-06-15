@@ -11,7 +11,7 @@ String formatoGral(int n){
 
 //SEGUNDA LINEA AL INICIO
 void imprimirAng(int rot){
-  lcd.setCursor(0, 1);
+  lcd.setCursor(12, 0);
   lcd.print(formatoGral(rot));
 }
 
@@ -45,19 +45,19 @@ void imprimirPixy(){
 //  else{
 //    lcd.print("0");
 //  }
-//  lcd.setCursor(2,0);
-//  if(tendencia){
-//    lcd.print("1");
-//  }
-//  else{
-//    lcd.print("0");
-//  }
+  lcd.setCursor(2,0);
+  if(tendencia){
+    lcd.print("1");
+  }
+  else{
+    lcd.print("0");
+  }
 
   lcd.setCursor(4, 0);
-  lcd.print(formatoGral(x_pelota));
+  lcd.print(formatoGral(x_porteria));
 
   lcd.setCursor(8, 0);
-  lcd.print(formatoGral(y_pelota));
+  lcd.print(formatoGral(y_porteria));
 //
 //  lcd.setCursor(12, 0);
 //  lcd.print(formatoGral(angPixy));
@@ -78,7 +78,11 @@ void imprimirPixy(){
 
 
 void imprimirmovimiento(int evento){
-  lcd.setCursor(0,1);
-  lcd.print(evento);
+//  lcd.setCursor(0,1);
+//  lcd.print(evento);
   }
 
+void imprimirkicker(){
+  lcd.setCursor(0,1);
+  lcd.print(conta_kicker);
+}

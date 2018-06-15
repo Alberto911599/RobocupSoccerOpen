@@ -45,14 +45,14 @@ void all_meco(int aux){
       //izquierda
       if(on_color[1] == 1){
         tempPos= 0;
-        correctaRotacion = rotacion < 180;
-        direccion = correctaRotacion ? (tendencia ? 3 : 6) : 3;
+//        correctaRotacion = rotacion < 180;
+        direccion = /*correctaRotacion ?*/ (tendencia ? 3 : 6) /*: 3*/;
       }
       //derecha
       else{
         tempPos= 1;
-        correctaRotacion = rotacion > 180;
-        direccion = correctaRotacion ? (tendencia ? 2 : 5) :  2;
+//        correctaRotacion = rotacion > 180;
+        direccion = /*correctaRotacion ? */(tendencia ? 2 : 5) /*:  2*/;
       }
     }
     //frentes

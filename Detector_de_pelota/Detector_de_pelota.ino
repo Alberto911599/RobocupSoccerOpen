@@ -17,6 +17,11 @@
 //MOTORES
 int motores[10] = {10, 9, 11, 12, 38, 36, 42, 40, 28, 26};
 int enable[5] = {8, 13, 7, 6, 5};
+
+//MOTORES
+//int motores[10] = {42, 40, 38, 36, 10, 9, 12, 11, 28, 26};
+//int enable[5] = {6, 7, 8, 13, 5};
+
 int p1 = 180;
 int p2 = 200;
 
@@ -43,13 +48,13 @@ int contador_pelota = 0;
 int contador_porteria = 0;
 int signature_porteria;
 bool tendencia;
-unsigned bajoPor = 120, altoPor = 200;
+unsigned bajoPor = 110, altoPor = 210;
 
 //////////////////////////////////////KICKER//////////////////////////////////////
 unsigned long tiempoKick = 0;
 unsigned long tiempoKick2 = 0;
 bool actKick = false;
-
+int conta_kicker = 0;
 //////////////////////////////////////FOTORRESISTENCIAS//////////////////////////////////////
 short on_color[4] = {3,2,18,19};                       
                                  

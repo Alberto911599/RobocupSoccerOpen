@@ -53,7 +53,7 @@ int find_objective(int i){
 void desmarque(){
   int tempDir = x_porteria < 160 ? 5 : 6;
   long temp = millis();
-  while(millis() < temp + 7500 && !viendo_Pelota){
+  while(millis() < temp + 7000 && !viendo_Pelota){
     scanPixy();
     avanzar(tempDir);
     colores();
@@ -69,19 +69,20 @@ void analisis_de_datos(){
   alineacionBNO();
 
 //  //VERIFICAR SI LA PELOTA ESTA EN Y Y EN X CERCA PARA GOLPEAR
-  bool Kb = millis() - tiempoKick2 > 9000 && !actKick;
+  bool Kb = millis() - tiempoKick > 6000 && !actKick;
   bool Rb = actKick && millis() - tiempoKick > 300;
   if(Kb){
-    if(y_pelota >= 180 && x_pelota > 130 && x_pelota < 190 && viendo_porteria){
+    if(y_pelota >= 175 && x_pelota > 130 && x_pelota < 190 && viendo_porteria && alineado == 0){
       actKick = true;
       tiempoKick = millis();
       digitalWrite(24,LOW);
+      conta_kicker++;
+      imprimirkicker();
     }
   }
   if(Rb){
     digitalWrite(24,HIGH);
     actKick = false;
-    tiempoKick2 = millis();
   }
 
   colores();
@@ -99,15 +100,9 @@ void analisis_de_datos(){
 
 //  Mete gol
     else{
-      if(alineacionPorteria()){
-        lcd.setCursor(1,0);
-        lcd.print("X");
-      }
-      else{
-        lcd.setCursor(1,0);
-        lcd.print("A");
-      }
-      if(y_pelota > 170){
+      alineacionPorteria();
+        
+      if(y_pelota > 175){
         afloja();
         direccion = catch_fire(x_pelota);
       }

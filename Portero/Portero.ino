@@ -46,7 +46,7 @@ int x = 0;
 
 ///////////////////////////////////////ULTRASONICOS/////////////////////////////////////////
 NewPing izq(32, 32, 99);
-NewPing der(34, 34, 99);
+NewPing der(35, 35, 99);
 double anteIzq = 0, actIzq = 0;
 double anteDer = 0, actDer = 0;
 bool adentroIzq = true, adentroDer = true;
@@ -102,7 +102,7 @@ void setup(){
    
 
   pinMode(24, OUTPUT);
-//  digitalWrite(24, HIGH);
+  digitalWrite(24, HIGH);
 
   pinMode(47, OUTPUT);
   pinMode(43, OUTPUT);

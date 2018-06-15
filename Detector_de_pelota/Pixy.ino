@@ -34,7 +34,7 @@ void scanPixy(){
   
         
         //Naranja Pelota
-        if(signature == 2 && area_temp  > 50){
+        if(signature == 2 && area_temp  > 40){
   
             contador_pelota = 0;
             x_pelota = pixy.blocks[h].x; //Regresa la coordenada x del centro del rectangulo (de 0 a 319)
@@ -44,7 +44,7 @@ void scanPixy(){
         }
         
         //Porteria
-        else if(signature == signature_porteria && area_temp  > 100){
+        else if(signature == signature_porteria && area_temp  > 50){
                     
               contador_porteria = 0;
               x_porteria = pixy.blocks[h].x; //Regresa la coordenada x del centro del rectangulo de la porteria amarilla(de 0 a 319)

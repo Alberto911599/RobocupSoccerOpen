@@ -2,21 +2,21 @@ int catch_fire_direct(){
   
   int temp = angPixy <= 35 ? (x_pelota < 160 ? 2 : 3) : 1;
 
-  Kp = angPixy > 35 ? 7 : 15;
+  Kp = angPixy > 35 ? 7 : 17;
 
   int diferencia = abs(angPixy - 35) * Kp;
   
-  p1 = x_pelota >= 140 ? 180 : diferencia;
-  p2 = x_pelota <= 180 ? 200 : diferencia;
+  p1 = x_pelota >= 145 ? 180 : diferencia;
+  p2 = x_pelota <= 175 ? 200 : diferencia;
 
   p1 > 170 ? 170 : p1;
   p2 > 180 ? 180 : p2;
 
   if(p1 + p2 < 280){
     if(p1 > p2)
-      p1 += 30;
+      p1 += 45;
     else
-      p2 += 30;
+      p2 += 45;
   }
 
   analogWrite(enable[0], p1);

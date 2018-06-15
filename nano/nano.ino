@@ -28,7 +28,7 @@
   }
   
   const int tm = 20;
-  const int umbral = 30;
+  const int umbral = 40;
   
   void setup(){
     
