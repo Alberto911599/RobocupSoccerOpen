@@ -36,7 +36,7 @@
   const int back_s = 150;
   const int left_r = 370;
   const int left_s = 140;
-  const int tm = 20;
+  const int tm = 5;
   const int umbral = 50;
   void setup(){
     

@@ -31,19 +31,20 @@ void dribbler(){
 int find_objective(int i){
   int temp;
   //Si no se detecta, y la ultima vez que se vio fue en medio
-  if( i >= 40 && i <= 280 ){
-//    Serial.println("Se perdio de vista por distancia, echa reversa");
-    temp = 0;
-  }
-//  Si no se detecta, y la ultima vez que se vio i fue mayor a 270, el objetivo esta a la derecha
-  else if(i > 280){
+//  if( i >= 40 && i <= 280 ){
+////    Serial.println("Se perdio de vista por distancia, echa reversa");
+//    temp = 0;
+//  }
+////  Si no se detecta, y la ultima vez que se vio i fue mayor a 270, el objetivo esta a la derecha
+//  else 
+  if(i > 160){
 //    Serial.println("El objetivo salio por la derecha, diagonal hacia atras a la derecha");
-    temp = 4;
+    temp = defensa ? 4 : 3;
   }
   //Si no se detecta, y la ultima vez que se vio i fue menor a 50, el objetivo esta a la izquierda
   else{
 //    Serial.println("El objetivo salio por la izquierda, diagonal hacia atras a la izuqierda");
-    temp = 7;
+    temp = defensa ? 7 : 2;
   }
   postP(temp);  
   return temp;
@@ -72,7 +73,7 @@ void analisis_de_datos(){
   bool Kb = millis() - tiempoKick > 6000 && !actKick;
   bool Rb = actKick && millis() - tiempoKick > 300;
   if(Kb){
-    if(y_pelota >= 175 && x_pelota > 130 && x_pelota < 190 && viendo_porteria && alineado == 0){
+    if(y_pelota >= 180 && x_pelota > 130 && x_pelota < 190 && viendo_porteria && alineado == 0){
       actKick = true;
       tiempoKick = millis();
       digitalWrite(24,LOW);
@@ -102,13 +103,13 @@ void analisis_de_datos(){
     else{
       alineacionPorteria();
         
-      if(y_pelota > 175){
-        afloja();
-        direccion = catch_fire(x_pelota);
-      }
-      else{
+//      if(y_pelota > 160){
+//        afloja();
+//        direccion = catch_fire(x_pelota);
+//      }
+//      else{
         direccion = catch_fire_direct();
-      }
+//      }
     }
     
     avanzar(direccion);

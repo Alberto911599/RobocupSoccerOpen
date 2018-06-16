@@ -17,6 +17,12 @@ int all_meco(){
   else if(on_color[1] == 1){
     caso = 3;
   }
+  
+  aprieta();
+  long tempTime = millis();
+  while(millis() < tempTime + tiempoT){
+    avanzar(caso, false);
+  }
 
   return caso;
     

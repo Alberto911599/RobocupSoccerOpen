@@ -151,8 +151,8 @@ int recorrido(int i, int y){
 }  
 
 void aprieta(){
-  analogWrite(enable[0], 170);
-  analogWrite(enable[1], 170);
+  analogWrite(enable[0], 180);
+  analogWrite(enable[1], 180);
   analogWrite(enable[2], 205);
   analogWrite(enable[3], 205);
 }

@@ -1,22 +1,31 @@
 int catch_fire_direct(){
   
   int temp = angPixy <= 35 ? (x_pelota < 160 ? 2 : 3) : 1;
-
-  Kp = angPixy > 35 ? 7 : 17;
-
-  int diferencia = abs(angPixy - 35) * Kp;
-  
-  p1 = x_pelota >= 145 ? 180 : diferencia;
-  p2 = x_pelota <= 175 ? 200 : diferencia;
-
-  p1 > 170 ? 170 : p1;
-  p2 > 180 ? 180 : p2;
-
-  if(p1 + p2 < 280){
-    if(p1 > p2)
-      p1 += 45;
+  if(angPixy < 24u){
+    if(x_pelota < 160)
+      temp = 7;
     else
-      p2 += 45;
+      temp = 4;
+    p1 = 180;
+    p2 = 190;
+  }
+  else{
+    Kp = angPixy > 35 ? 7 : 20;
+  
+    int diferencia = abs(angPixy - 35) * Kp;
+    
+    p1 = x_pelota >= 145 ? 180 : diferencia;
+    p2 = x_pelota <= 175 ? 200 : diferencia;
+  
+    p1 > 170 ? 170 : p1;
+    p2 > 180 ? 180 : p2;
+  
+    if(p1 + p2 < 280){
+      if(p1 > p2)
+        p1 += 45;
+      else
+        p2 += 45;
+    }
   }
 
   analogWrite(enable[0], p1);
@@ -85,13 +94,13 @@ void postP(int dir){
 
   diferencia *= Ap;
 
-  if(dir > 0){
+  if(dir == 7 || dir == 4){
     p1 = 170;
     p2 = 190;
   }
   else{
-    p1 = 150;
-    p2 = 160;
+    p1 = 140;
+    p2 = 140;
   }
 
   analogWrite(enable[0], p1);
@@ -112,11 +121,19 @@ void postP(int dir){
     analogWrite(enable[0], p1);
     analogWrite(enable[1], p2);
   }
+  else if(dir == 3){
+    analogWrite(enable[1], p2);
+    analogWrite(enable[2], p1);
+  }
   else if(dir == 4){
     analogWrite(enable[1], p2);
   }
+  else if(dir == 7){
+    analogWrite(enable[0], p1);
+  }
   else{
     analogWrite(enable[0], p1);
+    analogWrite(enable[3], p2);
   }
  }
  else{
@@ -126,6 +143,14 @@ void postP(int dir){
   }
   else if(dir == 4){
     analogWrite(enable[3], p2);
+  }
+  else if(dir == 3){
+    analogWrite(enable[0], p1);
+    analogWrite(enable[3], p2);
+  }
+  else if(dir == 2){
+    analogWrite(enable[1], p2);
+    analogWrite(enable[2], p1);
   }
   else{
     analogWrite(enable[2], p1);

@@ -95,3 +95,29 @@ void alineacionP(int ang){
     avanzar(tempDir, true);
 }
 
+void despeje(){
+  long tempTime = millis();
+  while(millis() < tempTime + 1100 && !actKick){
+    int temp;
+    if(x_pelota > 80 && x_pelota < 240){
+        temp = 1;     
+    }
+    //La pelota esta a la izquierda
+    else if(x_pelota <= 80){
+        temp = 2;
+    }
+    //La pelota esta a la derecha
+    else{
+        temp = 3;
+    }
+    avanzar(temp, false);
+    kicker();
+    centro(adentroIzq, adentroDer);
+    scanPixy();
+  }  
+  contadorDespeje = 0;
+  if(!adentroDer && !adentroIzq){
+    caso = esp == 2 ? 3 : 2;
+  }
+}
+

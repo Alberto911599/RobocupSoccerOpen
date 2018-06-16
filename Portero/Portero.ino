@@ -38,10 +38,12 @@ bool cambio = false, entre = true;
 int anguloPermitido = 40;
 unsigned Kp = 4;
 unsigned Ap = 3;
+unsigned contadorDespeje = 0;
 unsigned baseRotacion = 70;
 int p1 = 170;
 int p2 = 190;
 int x = 0;
+
 
 
 ///////////////////////////////////////ULTRASONICOS/////////////////////////////////////////
@@ -60,7 +62,7 @@ unsigned limiteDistancia = 25;
 ///////////////////////////////////////FOTORRESISTENCIAS/////////////////////////////////////////
 short on_color[4] = {3,2,18,19};                       
 int direccion = -1; 
-int tiempoT = 800;
+int tiempoT = 1200;
 
 //////////////////////////////////////Mov
 String i;

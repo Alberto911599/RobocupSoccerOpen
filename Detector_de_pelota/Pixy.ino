@@ -10,6 +10,7 @@ void scanPixy(){
     viendo_Pelota = contador_pelota < 100;
     viendo_porteria = contador_porteria < 100;
     tendencia = y_porteria >= 40;
+    defensa = y_porteria >= 35;
   
     if(!viendo_Pelota){
       if((direccion == 4 || direccion == 6 || direccion == 3))
@@ -39,7 +40,7 @@ void scanPixy(){
             contador_pelota = 0;
             x_pelota = pixy.blocks[h].x; //Regresa la coordenada x del centro del rectangulo (de 0 a 319)
             y_pelota = pixy.blocks[h].y; //Regresa la coordenada x del centro del rectangulo (de 0 a 199)
-            angPixy = x_pelota > 157 && x_pelota < 163 ? 90 : atan((199 - y_pelota)/abs(x_pelota - 160))*180/3.1416; 
+            angPixy = x_pelota > 157 && x_pelota < 163 ? 90 : atan((double)(199.00 - y_pelota)/abs(x_pelota - 160.00))*180/3.1416; 
     
         }
         

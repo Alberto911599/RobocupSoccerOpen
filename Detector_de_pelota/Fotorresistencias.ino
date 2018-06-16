@@ -79,6 +79,11 @@ void all_meco(int aux){
     while(millis() < tempTime + tiempo){
       avanzar(direccion);
       colores();
+      if(proxPos == -2){
+        if(on_color[0] == 1 || on_color[1] == 1){
+          all_meco(1);
+        }
+      }
       if(on_color[tempPos] == 1){
         all_meco(proxPos);
       }

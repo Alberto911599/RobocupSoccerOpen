@@ -33,7 +33,7 @@ void analisis_de_datos(){
       scanPixy();
       
       //FUERA DE LA PORTERIA
-      if(!adentroIzq || !adentroDer){
+      if(!adentroIzq || !adentroDer ){
         //SALISTE HACIA EL FRENTE
         if(actIzq > limiteDistancia+20 || actDer > limiteDistancia+20){
           avanzar(0, false);
@@ -54,29 +54,26 @@ void analisis_de_datos(){
         //SEGUIMIENTOS DE PELOTA
         if(viendo_Pelota){
           direccion = recorrido(x_pelota, y_pelota);
-          if(esp == direccion)
+          if(esp == direccion){
             avanzar(-1, false);
+            contadorDespeje++; 
+          }
           else{
             esp = -1;
+            contadorDespeje = 0;
             avanzar(direccion, true);
           }
+          if(contadorDespeje >= 50 && y_pelota > 85){
+            despeje();
+          }
+          
           //VERIFICAR SI LA PELOTA ESTA EN Y Y EN X CERCA PARA GOLPEAR
-          bool Kb = millis() - tiempoKick > 8000 && !actKick;
-          bool Rb = actKick && millis() - tiempoKick > 2000;
-          if(Kb){
-            if(y_pelota >= 180 && x_pelota > 130 && x_pelota < 190 && viendo_porteria){
-              actKick = true;
-              tiempoKick = millis();
-              digitalWrite(24,LOW);
-            }
-          }
-          if(Rb){
-            digitalWrite(24,HIGH);
-            actKick = false;
-          }
+          kicker();
+          
         }
         //BUSCAR PELOTA
-        else{    
+        else{
+          contadorDespeje = 0;    
           if(x_pelota > 160)
             avanzar(3, false);
           else

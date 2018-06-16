@@ -27,8 +27,8 @@
 //    Serial.println("");
   }
   
-  const int tm = 20;
-  const int umbral = 40;
+  int tm = 80;
+  const int umbral = 20;
   
   void setup(){
     
@@ -45,7 +45,7 @@
   void loop(){
     
     lecturas_promedio();    
-
+    tm = 50;
     digitalWrite(led, LOW);
 
     digitalWrite(out[0], LOW);
@@ -56,12 +56,14 @@
     if(colores[0] > (constantes[0] + umbral) || colores[1] > (constantes[1] + umbral)){
         digitalWrite(out[0], HIGH);
         digitalWrite(led, HIGH);
+        tm = 600;
       }
       
 
     if(colores[4] > (constantes[4] + umbral)|| colores[5] > (constantes[5] + umbral)){
       digitalWrite(out[1], HIGH);
       digitalWrite(led, HIGH);
+      tm = 600;
 
     }
 
@@ -75,7 +77,7 @@
       digitalWrite(led, HIGH);
     }
 
-    delayMicroseconds(tm); 
+    delay(tm); 
     
 
   }
